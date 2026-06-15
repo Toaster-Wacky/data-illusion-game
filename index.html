@@ -279,9 +279,10 @@
         import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
         // ⚠️ ใส่ Firebase Config ของคุณตรงนี้
-        const firebaseConfig = {
+    const firebaseConfig = {
             apiKey: "AIzaSyBMjigx-M5xZJPBaRqTNO_B3ZNDxpQ3rm0",
             authDomain: "statics-compound.firebaseapp.com",
+            databaseURL: "https://statics-compound-default-rtdb.firebaseio.com", // <-- ผมเติมบรรทัดนี้จากในรูปให้แล้วครับ!
             projectId: "statics-compound",
             storageBucket: "statics-compound.firebasestorage.app",
             messagingSenderId: "1063084261081",
