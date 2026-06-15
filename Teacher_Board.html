@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>SIA COMMAND CENTER: LIVE LEADERBOARD</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&display=swap');
+        
+        body { background-color: #050a0f; color: #fff; font-family: 'Chakra Petch', sans-serif; padding: 40px; margin: 0; }
+        h1 { color: #00f3ff; text-align: center; font-size: 3rem; text-transform: uppercase; border-bottom: 3px solid #00f3ff; padding-bottom: 20px; margin-bottom: 40px; text-shadow: 0 0 20px rgba(0,243,255,0.4); }
+        
+        #leaderboard { display: grid; gap: 25px; }
+        .team-row { background: #111827; border: 2px solid #374151; border-radius: 12px; padding: 25px; display: flex; align-items: center; gap: 30px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); transition: 0.3s; }
+        
+        .team-name { font-size: 2rem; font-weight: 700; color: #9ca3af; width: 150px; }
+        .progress-wrapper { flex: 1; background: #000; height: 50px; border-radius: 25px; border: 2px solid #1f2937; overflow: hidden; position: relative; }
+        .progress-fill { height: 100%; width: 0%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.8s; }
+        .status-badge { position: absolute; top: 50%; left: 25px; transform: translateY(-50%); font-size: 1.2rem; font-weight: 700; color: #fff; text-shadow: 1px 1px 4px #000; }
+        
+        /* สเตตัสสีตามด่าน */
+        .stage-1 { width: 25%; background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .stage-2 { width: 50%; background: linear-gradient(90deg, #3b82f6, #00f3ff); }
+        .stage-3 { width: 75%; background: linear-gradient(90deg, #ec4899, #ff007a); }
+        .stage-4 { width: 100%; background: linear-gradient(90deg, #10b981, #00ff66); box-shadow: 0 0 20px #00ff66; }
+        
+        .active { border-color: #00f3ff; }
+        .active .team-name { color: #00f3ff; }
+    </style>
+</head>
+<body>
+
+    <h1>🌐 LIVE MISSION TRACKER</h1>
+    <div id="leaderboard">
+        </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        // ⚠️ ใส่ Firebase Config ของคุณตรงนี้ (ต้องเหมือนกันกับฝั่งนักเรียน)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+            projectId: "YOUR_PROJECT"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const board = document.getElementById('leaderboard');
+        const teamNames = ["GROUP 1", "GROUP 2", "GROUP 3", "GROUP 4", "GROUP 5", "GROUP 6"];
+        
+        teamNames.forEach((name, index) => {
+            const id = `team${index+1}`;
+            board.innerHTML += `
+                <div class="team-row" id="row-${id}">
+                    <div class="team-name">${name}</div>
+                    <div class="progress-wrapper">
+                        <div class="progress-fill" id="fill-${id}"></div>
+                        <div class="status-badge" id="badge-${id}">OFFLINE</div>
+                    </div>
+                </div>
+            `;
+        });
+
+        const gameRef = ref(db, 'game_state/');
+        onValue(gameRef, (snapshot) => {
+            const data = snapshot.val();
+            if(data) {
+                Object.keys(data).forEach(teamId => {
+                    const stage = data[teamId].stage;
+                    updateUI(teamId, stage);
+                });
+            }
+        });
+
+        function updateUI(teamId, stage) {
+            const row = document.getElementById(`row-${teamId}`);
+            const fill = document.getElementById(`fill-${teamId}`);
+            const badge = document.getElementById(`badge-${teamId}`);
+            
+            if(!row) return;
+            row.classList.add('active');
+            fill.className = 'progress-fill'; // Reset classes
+            
+            switch(stage) {
+                case 1: 
+                    fill.classList.add('stage-1'); badge.innerText = "PHASE 1: วางฐานข้อมูล"; break;
+                case 2: 
+                    fill.classList.add('stage-2'); badge.innerText = "PHASE 2: วิเคราะห์โครงสร้าง"; break;
+                case 3: 
+                    fill.classList.add('stage-3'); badge.innerText = "PHASE 3: ปะทะตรรกะไวรัส"; break;
+                case 4: 
+                    fill.classList.add('stage-4'); badge.innerText = "SECURED! ภารกิจสมบูรณ์"; break;
+            }
+        }
+    </script>
+</body>
+</html>
