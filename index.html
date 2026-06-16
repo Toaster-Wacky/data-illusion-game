@@ -111,6 +111,46 @@
         .c-bar { width: 40px; border-radius: 3px; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; font-size: 0.8rem;}
 
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* =========================================
+           MOBILE RESPONSIVE (ปรับหน้าจอสำหรับมือถือ)
+           ========================================= */
+        @media (max-width: 768px) {
+            body {
+                height: auto; /* ปลดล็อกความสูง ให้เลื่อนขึ้นลงได้ */
+                overflow: auto;
+            }
+            #main-container {
+                flex-direction: column; /* เปลี่ยนเลย์เอาต์จาก ซ้าย-ขวา เป็น บน-ล่าง */
+                overflow: visible;
+            }
+            #left-panel, #right-panel {
+                flex: none;
+                width: 100%;
+                overflow-y: visible;
+            }
+            #left-panel {
+                border-right: none;
+                border-bottom: 2px solid var(--neon-blue); /* เปลี่ยนเส้นคั่นมาไว้ด้านล่าง */
+                padding-bottom: 30px;
+            }
+            #top-bar {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            .timer {
+                font-size: 1.5rem;
+            }
+            .login-box {
+                width: 90%;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -335,7 +375,7 @@
                 </p>
 
                 <div class="story-box" style="border-color: var(--neon-blue); background: rgba(0, 229, 255, 0.1); text-align: left; margin-top: 30px; display: inline-block; max-width: 800px;">
-                    <strong>บทสรุปการเรียนรู้:</strong> การเปรียบเทียบแค่ 'ร้อยละ' โดยไม่สนใจฐานจำนวนจริงเป็นเรื่องที่ต้องระวัง (เหมือนโจทย์บริษัทผลไม้) แต่การใช้แผนภูมิแท่งส่วนประกอบแบบร้อยละ (100% Stacked) ก็มีประโยชน์มากในการดู "สัดส่วนที่เปลี่ยนไป" ขององค์ประกอบภายใน
+                    <strong>บทสรุปการเรียนรู้:</strong> การเปรียบเทียบแค่ 'ร้อยละ' โดยไม่สนใจฐานจำนวนจริงเป็นเรื่องที่ต้องระวัง (เหมือนโจทย์บริษัทผลไม้) แต่การใช้แผนภูมิแท่งส่วนประกอบแบบร้อยละ ก็มีประโยชน์มากในการดู "สัดส่วนที่เปลี่ยนไป" ขององค์ประกอบภายใน
                 </div>
             </div>
 
@@ -346,7 +386,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        // ⚠️ ใส่ Firebase Config ของคุณตรงนี้
+        // ⚠️ ใส่ Firebase Config 
         const firebaseConfig = {
             apiKey: "AIzaSyBMjigx-M5xZJPBaRqTNO_B3ZNDxpQ3rm0",
             authDomain: "statics-compound.firebaseapp.com",
