@@ -2,13 +2,17 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>SIA COMMAND CENTER: LIVE LEADERBOARD</title>
+    <title>COMMAND CENTER: LIVE LEADERBOARD</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&display=swap');
         
-        body { background-color: #050a0f; color: #fff; font-family: 'Chakra Petch', sans-serif; padding: 40px; margin: 0; }
+        body { background-color: #050a0f; color: #fff; font-family: 'Chakra Petch', sans-serif; padding: 40px; margin: 0; position: relative;}
         h1 { color: #00f3ff; text-align: center; font-size: 3rem; text-transform: uppercase; border-bottom: 3px solid #00f3ff; padding-bottom: 20px; margin-bottom: 40px; text-shadow: 0 0 20px rgba(0,243,255,0.4); }
         
+        /* ปุ่มรีเซ็ตสำหรับครู */
+        #reset-btn { position: absolute; top: 40px; right: 40px; background: #ff003c; color: #fff; border: 2px solid #ff003c; padding: 12px 25px; font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; box-shadow: 0 0 15px rgba(255,0,60,0.4); transition: 0.2s;}
+        #reset-btn:hover { background: #000; color: #ff003c; }
+
         #leaderboard { display: grid; gap: 25px; }
         .team-row { background: #111827; border: 2px solid #374151; border-radius: 12px; padding: 25px; display: flex; align-items: center; gap: 30px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); transition: 0.3s; }
         
@@ -30,18 +34,21 @@
 <body>
 
     <h1>🌐 LIVE MISSION TRACKER</h1>
+    <button id="reset-btn" onclick="resetBoard()">RESET SYSTEM</button>
+
     <div id="leaderboard">
         </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        // เพิ่ม set เข้ามาเพื่อใช้ส่งค่าลบข้อมูล
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        // ⚠️ ใส่ Firebase Config ของคุณตรงนี้ (ต้องเหมือนกันกับฝั่งนักเรียน)
-  const firebaseConfig = {
+        // ⚠️ 
+   const firebaseConfig = {
             apiKey: "AIzaSyBMjigx-M5xZJPBaRqTNO_B3ZNDxpQ3rm0",
             authDomain: "statics-compound.firebaseapp.com",
-            databaseURL: "https://statics-compound-default-rtdb.firebaseio.com", // <-- ผมเติมบรรทัดนี้จากในรูปให้แล้วครับ!
+            databaseURL: "https://statics-compound-default-rtdb.firebaseio.com", 
             projectId: "statics-compound",
             storageBucket: "statics-compound.firebasestorage.app",
             messagingSenderId: "1063084261081",
@@ -66,17 +73,25 @@
             `;
         });
 
+        // ดึงข้อมูลแบบ Real-time
         const gameRef = ref(db, 'game_state/');
         onValue(gameRef, (snapshot) => {
             const data = snapshot.val();
             if(data) {
+                // ถ้ามีข้อมูลคะแนน ให้วิ่งไปอัปเดตหน้าจอ
                 Object.keys(data).forEach(teamId => {
                     const stage = data[teamId].stage;
                     updateUI(teamId, stage);
                 });
+            } else {
+                // ถ้าข้อมูลว่างเปล่า (เพิ่งกด Reset) ให้เคลียร์กระดานทั้งหมด
+                for(let i=1; i<=6; i++) {
+                    clearUI(`team${i}`);
+                }
             }
         });
 
+        // ฟังก์ชันอัปเดตหลอดคะแนน
         function updateUI(teamId, stage) {
             const row = document.getElementById(`row-${teamId}`);
             const fill = document.getElementById(`fill-${teamId}`);
@@ -97,6 +112,29 @@
                     fill.classList.add('stage-4'); badge.innerText = "SECURED! ภารกิจสมบูรณ์"; break;
             }
         }
+
+        // ฟังก์ชันรีเซ็ตหลอดคะแนนกลับเป็น OFFLINE
+        function clearUI(teamId) {
+            const row = document.getElementById(`row-${teamId}`);
+            const fill = document.getElementById(`fill-${teamId}`);
+            const badge = document.getElementById(`badge-${teamId}`);
+            
+            if(!row) return;
+            row.classList.remove('active');
+            fill.className = 'progress-fill';
+            fill.style.width = '0%';
+            badge.innerText = "OFFLINE";
+        }
+
+        // ทำให้ปุ่ม Reset สามารถทำงานระดับ Global ได้
+        window.resetBoard = function() {
+            if(confirm("⚠️ คำเตือน: คุณต้องการรีเซ็ตกระดานคะแนนสำหรับสอนห้องใหม่ใช่หรือไม่? (ข้อมูลคะแนนเดิมจะถูกลบทั้งหมด)")) {
+                // ส่งค่า null ไปทับโฟลเดอร์ game_state ในฐานข้อมูล
+                set(ref(db, 'game_state/'), null).then(() => {
+                    alert("✅ รีเซ็ตกระดานเรียบร้อยแล้ว พร้อมสำหรับห้องต่อไป!");
+                });
+            }
+        };
     </script>
 </body>
 </html>
