@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COMMAND CENTER: LIVE LEADERBOARD</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&display=swap');
@@ -18,17 +19,23 @@
         
         .team-name { font-size: 2rem; font-weight: 700; color: #9ca3af; width: 150px; }
         .progress-wrapper { flex: 1; background: #000; height: 50px; border-radius: 25px; border: 2px solid #1f2937; overflow: hidden; position: relative; }
+        
+        /* แก้ปัญหาแถบไม่วิ่ง โดยบังคับ width ไว้ที่ 0% เป็นค่าเริ่มต้น */
         .progress-fill { height: 100%; width: 0%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.8s; }
+        
         .status-badge { position: absolute; top: 50%; left: 25px; transform: translateY(-50%); font-size: 1.2rem; font-weight: 700; color: #fff; text-shadow: 1px 1px 4px #000; }
         
-        /* สเตตัสสีตามด่าน */
-        .stage-1 { width: 25%; background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-        .stage-2 { width: 50%; background: linear-gradient(90deg, #3b82f6, #00f3ff); }
-        .stage-3 { width: 75%; background: linear-gradient(90deg, #ec4899, #ff007a); }
-        .stage-4 { width: 100%; background: linear-gradient(90deg, #10b981, #00ff66); box-shadow: 0 0 20px #00ff66; }
+        /* สเตตัสสีตามด่าน - บังคับ width ใหม่ให้วิ่งไปตามสเตจ */
+        .progress-fill.stage-1 { width: 14%; background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .progress-fill.stage-2 { width: 28%; background: linear-gradient(90deg, #f59e0b, #f97316); }
+        .progress-fill.stage-3 { width: 42%; background: linear-gradient(90deg, #3b82f6, #00f3ff); }
+        .progress-fill.stage-4 { width: 57%; background: linear-gradient(90deg, #8b5cf6, #d946ef); }
+        .progress-fill.stage-5 { width: 71%; background: linear-gradient(90deg, #ec4899, #ff007a); }
+        .progress-fill.stage-6 { width: 85%; background: linear-gradient(90deg, #a855f7, #ff00ff); }
+        .progress-fill.stage-7 { width: 100%; background: linear-gradient(90deg, #10b981, #00ff66); box-shadow: 0 0 20px #00ff66; }
         
         .active { border-color: #00f3ff; }
-        .active .team-name { color: #00f3ff; }
+        .active .team-name { color: #00f3ff; text-shadow: 0 0 10px #00f3ff; }
     </style>
 </head>
 <body>
@@ -41,11 +48,10 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        // เพิ่ม set เข้ามาเพื่อใช้ส่งค่าลบข้อมูล
         import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        // ⚠️ 
-   const firebaseConfig = {
+        // ⚠️ Firebase Config 
+        const firebaseConfig = {
             apiKey: "AIzaSyBMjigx-M5xZJPBaRqTNO_B3ZNDxpQ3rm0",
             authDomain: "statics-compound.firebaseapp.com",
             databaseURL: "https://statics-compound-default-rtdb.firebaseio.com", 
@@ -78,13 +84,11 @@
         onValue(gameRef, (snapshot) => {
             const data = snapshot.val();
             if(data) {
-                // ถ้ามีข้อมูลคะแนน ให้วิ่งไปอัปเดตหน้าจอ
                 Object.keys(data).forEach(teamId => {
                     const stage = data[teamId].stage;
                     updateUI(teamId, stage);
                 });
             } else {
-                // ถ้าข้อมูลว่างเปล่า (เพิ่งกด Reset) ให้เคลียร์กระดานทั้งหมด
                 for(let i=1; i<=6; i++) {
                     clearUI(`team${i}`);
                 }
@@ -101,19 +105,26 @@
             row.classList.add('active');
             fill.className = 'progress-fill'; // Reset classes
             
+            // เพิ่ม class stage-X เพื่อกระตุ้นให้ CSS ปรับความกว้างหลอดพลัง
             switch(stage) {
                 case 1: 
-                    fill.classList.add('stage-1'); badge.innerText = "PHASE 1: วางฐานข้อมูล"; break;
+                    fill.classList.add('stage-1'); badge.innerText = "PHASE 1: ถอดรหัสฐานข้อมูล"; break;
                 case 2: 
-                    fill.classList.add('stage-2'); badge.innerText = "PHASE 2: วิเคราะห์โครงสร้าง"; break;
+                    fill.classList.add('stage-2'); badge.innerText = "PHASE 2: สกัดข้อมูลกราฟแท่ง"; break;
                 case 3: 
-                    fill.classList.add('stage-3'); badge.innerText = "PHASE 3: ปะทะตรรกะไวรัส"; break;
+                    fill.classList.add('stage-3'); badge.innerText = "PHASE 3: ทดสอบตรรกะสถิติ"; break;
                 case 4: 
-                    fill.classList.add('stage-4'); badge.innerText = "SECURED! ภารกิจสมบูรณ์"; break;
+                    fill.classList.add('stage-4'); badge.innerText = "PHASE 4: ความขัดแย้งเชิงเปอร์เซ็นต์"; break;
+                case 5: 
+                    fill.classList.add('stage-5'); badge.innerText = "PHASE 5: คำนวณร้อยละส่วนประกอบ"; break;
+                case 6: 
+                    fill.classList.add('stage-6'); badge.innerText = "PHASE 6: อ่านแผนภูมิงานวิจัย"; break;
+                case 7: 
+                    fill.classList.add('stage-7'); badge.innerText = "LESSON COMPLETE! 🎉"; break;
             }
         }
 
-        // ฟังก์ชันรีเซ็ตหลอดคะแนนกลับเป็น OFFLINE
+        // ฟังก์ชันรีเซ็ตหลอดคะแนน
         function clearUI(teamId) {
             const row = document.getElementById(`row-${teamId}`);
             const fill = document.getElementById(`fill-${teamId}`);
@@ -122,14 +133,11 @@
             if(!row) return;
             row.classList.remove('active');
             fill.className = 'progress-fill';
-            fill.style.width = '0%';
             badge.innerText = "OFFLINE";
         }
 
-        // ทำให้ปุ่ม Reset สามารถทำงานระดับ Global ได้
         window.resetBoard = function() {
             if(confirm("⚠️ คำเตือน: คุณต้องการรีเซ็ตกระดานคะแนนสำหรับสอนห้องใหม่ใช่หรือไม่? (ข้อมูลคะแนนเดิมจะถูกลบทั้งหมด)")) {
-                // ส่งค่า null ไปทับโฟลเดอร์ game_state ในฐานข้อมูล
                 set(ref(db, 'game_state/'), null).then(() => {
                     alert("✅ รีเซ็ตกระดานเรียบร้อยแล้ว พร้อมสำหรับห้องต่อไป!");
                 });
