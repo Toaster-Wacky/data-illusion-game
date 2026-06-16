@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Data Illusion: Ultimate GBL Edition</title>
+    <title>The Data Illusion: Statistics Lab</title>
     <style>
         :root {
             --neon-blue: #00e5ff;
@@ -55,6 +55,7 @@
             display: flex;
             flex: 1;
             overflow: hidden;
+            transition: all 0.5s ease;
         }
         
         #left-panel {
@@ -63,6 +64,7 @@
             border-right: 1px solid #333;
             background: #0a0a0a;
             overflow-y: auto;
+            transition: all 0.5s ease;
         }
         #right-panel {
             flex: 1.2;
@@ -70,6 +72,7 @@
             background-color: #0d0d0d;
             position: relative;
             overflow-y: auto;
+            transition: all 0.5s ease;
         }
 
         .img-display {
@@ -82,7 +85,7 @@
         }
         .blurred { filter: blur(15px) grayscale(100%); pointer-events: none; transition: 1s; }
         
-        .story-box { border-left: 4px solid var(--neon-pink); background: rgba(255, 0, 127, 0.1); padding: 15px; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.5; }
+        .story-box { border-left: 4px solid var(--neon-blue); background: rgba(0, 229, 255, 0.1); padding: 15px; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.5; }
         .phase-section { display: none; animation: slideIn 0.5s forwards; }
         .phase-section.active { display: block; }
         
@@ -114,22 +117,22 @@
 
     <div id="login-overlay">
         <div class="login-box">
-            <h1 style="color: var(--neon-blue); margin-top: 0;">DATA RESCUE PROTOCOL</h1>
-            <p style="color: #9ca3af; margin-bottom: 30px;">ระบบตรวจพบสัญญาณแทรกแซง กรุณายืนยันตัวตนหน่วยรบ</p>
+            <h1 style="color: var(--neon-blue); margin-top: 0;">STATISTICS LEARNING MODULE</h1>
+            <p style="color: #9ca3af; margin-bottom: 30px;">กรุณาเลือกกลุ่มการเรียนรู้เพื่อเข้าสู่ระบบทดสอบ</p>
             <select id="team-select" style="width: 100%; margin-bottom: 20px; font-size: 1.2rem; text-align: center; padding: 10px;">
-                <option value="team1">AGENT GROUP 1</option>
-                <option value="team2">AGENT GROUP 2</option>
-                <option value="team3">AGENT GROUP 3</option>
-                <option value="team4">AGENT GROUP 4</option>
-                <option value="team5">AGENT GROUP 5</option>
-                <option value="team6">AGENT GROUP 6</option>
+                <option value="team1">GROUP 1</option>
+                <option value="team2">GROUP 2</option>
+                <option value="team3">GROUP 3</option>
+                <option value="team4">GROUP 4</option>
+                <option value="team5">GROUP 5</option>
+                <option value="team6">GROUP 6</option>
             </select>
-            <button class="primary-btn" onclick="initGame()">CONNECT TO MAINFRAME</button>
+            <button class="primary-btn" onclick="initGame()">ENTER WORKSPACE</button>
         </div>
     </div>
 
     <div id="top-bar">
-        <div style="font-weight: bold; color: var(--neon-blue);">SIA SYSTEM // OPERATION: DATA RESCUE</div>
+        <div style="font-weight: bold; color: var(--neon-blue);">STATISTICS LAB // DATA ANALYSIS</div>
         <div class="timer" id="countdown">40:00</div>
     </div>
 
@@ -145,7 +148,7 @@
             </div>
 
             <div id="love-data-container" style="display: none;">
-                <h3 style="color: var(--neon-pink); margin-top: 0;">>> ANOMALY: BEAST APPEAL DATA</h3>
+                <h3 style="color: var(--neon-pink); margin-top: 0;">>> CASE STUDY: BEAST APPEAL DATA</h3>
                 <div style="font-size: 0.85rem; color: #888; margin-bottom: 5px;">ตารางเก็บคะแนนความดึงดูดของ Beast (ที่มาของเสน่ห์)</div>
                 
                 <img src="Screenshot 2569-06-16 at 12.38.25.png" class="img-display" style="border: 1px solid #555;" alt="Beast Appeal Ref">
@@ -171,25 +174,39 @@
             
             <div id="phase-1" class="phase-section active">
                 <div class="story-box">
-                    <strong>SIA (AI Assistant):</strong> "สวัสดี Agents! เซิร์ฟเวอร์ของบริษัทส่งออกผลไม้ถูกแฮกเกอร์โจมตี กราฟแท่งถูกล็อกไว้ เราต้องกู้รหัสผ่านด้วยการถอดรหัส 'โควตารายประเทศ' จากกราฟวงกลมให้ได้ก่อน ข้อมูลระบุว่ายอดรวมคือ <strong>10,000 กก. ต่อสัปดาห์</strong>"
+                    <strong>สถานการณ์ที่ 1:</strong> "บริษัทส่งออกผลไม้ต้องการให้คุณช่วยสรุปยอดการส่งออกประจำสัปดาห์ โดยระบุว่ายอดส่งออกรวมคือ <strong>10,000 กก. ต่อสัปดาห์</strong> จงแปลงข้อมูลร้อยละจากกราฟวงกลมให้เป็นปริมาณจริงเพื่อนำไปใช้งานต่อ"
                 </div>
                 <div class="scaffold-step">
-                    <div class="step-label">MISSION 1: DECRYPT BASE DATA</div>
+                    <div class="step-label">PHASE 1: BASE DATA CALCULATION</div>
                     <div class="input-row">🇨🇳 จีน: <input type="number" id="p1-c"> กก.</div>
                     <div class="input-row">🇭🇰 ฮ่องกง: <input type="number" id="p1-hk"> กก.</div>
                     <div class="input-row">🇻🇳 เวียดนาม: <input type="number" id="p1-vn"> กก.</div>
-                    <button class="primary-btn" onclick="checkPhase1()">ยืนยันข้อมูล (Unlock)</button>
+                    
+                    <div id="assist-1" class="ai-assist">
+                        <strong>💡 HINT:</strong> การหาเปอร์เซ็นต์ คือการนำ (ตัวเลขเปอร์เซ็นต์ ÷ 100) แล้วคูณด้วยยอดรวม (10,000)<br>เช่น จีน 45% -> (45 ÷ 100) × 10,000 = ?
+                    </div>
+                    
+                    <button class="primary-btn" onclick="checkPhase1()">ตรวจสอบข้อมูล (Unlock Bar Chart)</button>
                 </div>
             </div>
 
             <div id="phase-2" class="phase-section">
                 <div class="story-box" style="border-color: var(--neon-green); background: rgba(57, 255, 20, 0.1);">
-                    <strong>SIA:</strong> "กราฟแท่งถูกปลดล็อกแล้ว (ดูที่ฝั่งซ้าย) ข้อมูลกราฟแท่งคือ 'ร้อยละ' ไม่ใช่กิโลกรัม!"
+                    <strong>สถานการณ์ที่ 2:</strong> "ข้อมูลฐานถูกต้อง! ตอนนี้เราได้กราฟแท่งส่วนประกอบแบบร้อยละมาแล้ว (ดูที่ฝั่งซ้าย) ผู้จัดการต้องการทราบข้อมูลเชิงลึก โปรดระวัง ข้อมูลในกราฟแท่งคือ 'ร้อยละ' ไม่ใช่จำนวนกิโลกรัม!"
                 </div>
                 <div class="scaffold-step">
-                    <div class="step-label" style="background: var(--neon-green);">MISSION 2: DATA EXTRACTION</div>
+                    <div class="step-label" style="background: var(--neon-green);">PHASE 2: DATA EXTRACTION</div>
                     <div style="margin-bottom: 20px;">1) ส่งทุเรียนไปฮ่องกงรายสัปดาห์? <input type="number" id="p2-q1"> กก.</div>
+                    <div id="assist-2-1" class="ai-assist"><strong>💡 HINT:</strong> ดูแท่งฮ่องกง ทุเรียนคือ 30%... แต่ต้องใช้ 30% ของโควตาฮ่องกง (3,000 กก.) นะ ไม่ใช่ของ 10,000!</div>
+                    
                     <div style="margin-bottom: 20px;">2) ส่งออกทุเรียนทั้งหมด <u>เดือนละ</u> กี่กิโลกรัม? <input type="number" id="p2-q2"> กก.</div>
+                    <div id="assist-2-2" class="sub-step">
+                        <span style="color: var(--alert-orange); font-size: 0.85rem;">💡 HINT: ลองแยกคำนวณตามนี้ก่อน:</span><br>
+                        ทุเรียนจีน (สัปดาห์): <input type="number" id="sub-c" style="width: 80px;"> กก.<br>
+                        ทุเรียนเวียดนาม (สัปดาห์): <input type="number" id="sub-vn" style="width: 80px;"> กก.<br>
+                        นำมารวมกับฮ่องกง (ข้อ 1) แล้วคูณ 4 (เพราะ 1 เดือน = 4 สัปดาห์)
+                    </div>
+                    
                     <div style="margin-bottom: 10px;">
                         3) ส่งมังคุดไปจีนหรือฮ่องกงมากกว่า? (สัปดาห์)
                         <div style="display: flex; gap: 10px; margin-top: 10px;">
@@ -197,44 +214,49 @@
                             <input type="number" id="p2-q3-diff" placeholder="ผลต่าง (กก.)" style="flex: 1;">
                         </div>
                     </div>
-                    <button class="primary-btn" style="background: var(--neon-green);" onclick="checkPhase2()">ส่งรายงาน</button>
+                    <button class="primary-btn" style="background: var(--neon-green);" onclick="checkPhase2()">ส่งรายงานการวิเคราะห์</button>
                 </div>
             </div>
 
             <div id="phase-3" class="phase-section">
                 <div class="story-box" style="border-color: var(--alert-orange); background: rgba(255, 170, 0, 0.1);">
-                    <strong>⚠️ VIRUS ALERT:</strong> กราฟวงกลมถูกทำลาย! สรุปได้หรือไม่ว่า ฮ่องกง(45%) ส่งลำไยมากกว่า เวียดนาม(20%)?
+                    <strong>ทดสอบตรรกะเชิงสถิติ:</strong> "สมมติว่าไฟล์กราฟวงกลม (ฐานน้ำหนักรวม) สูญหายไป เหลือแค่กราฟแท่งที่เป็นร้อยละ คุณคิดว่าจะสามารถสรุปได้หรือไม่ว่า ฮ่องกง(45%) ส่งลำไยมากกว่า เวียดนาม(20%)?"
                 </div>
                 <div class="scaffold-step" style="border-color: var(--alert-orange);">
                     <select id="p3-ans" style="width: 100%; margin-bottom: 10px;"><option value="">-- เลือกข้อสรุป --</option><option value="yes">สรุปได้</option><option value="no">สรุปไม่ได้</option></select>
-                    <select id="p3-reason" style="width: 100%; font-size: 0.85rem; padding: 8px;"><option value="">-- ทำไมถึงคิดแบบนั้น? --</option><option value="A">เพราะกราฟแท่งบอกแค่อัตราส่วน ไม่บอกฐานจำนวนจริง</option><option value="B">เพราะเวียดนามกินทุเรียนเยอะกว่าลำไย</option></select>
-                    <button class="primary-btn" style="background: var(--alert-orange);" onclick="checkPhase3()" style="margin-top:15px;">ต้านทานไวรัส</button>
+                    
+                    <div id="assist-3" class="sub-step" style="display: block;">
+                        <p style="font-size: 0.85rem; color: #aaa;">โปรดเลือกเหตุผลประกอบ เพื่อยืนยันตรรกะ:</p>
+                        <select id="p3-reason" style="width: 100%; font-size: 0.85rem; padding: 8px;"><option value="">-- ทำไมถึงคิดแบบนั้น? --</option><option value="A">เพราะกราฟแท่งบอกแค่อัตราส่วน ไม่บอกฐานจำนวนจริงที่นำมาคำนวณ</option><option value="B">เพราะเวียดนามกินทุเรียนเยอะกว่าลำไย</option></select>
+                    </div>
+                    <button class="primary-btn" style="background: var(--alert-orange);" onclick="checkPhase3()" style="margin-top:15px;">ยืนยันคำตอบ</button>
                 </div>
             </div>
 
             <div id="phase-4" class="phase-section">
                 <div class="story-box" style="border-color: var(--neon-pink); background: rgba(255, 0, 127, 0.1);">
-                    <strong>😈 HACKER:</strong> "ประเทศที่นำเข้ามังคุดเป็นเปอร์เซ็นต์เยอะสุด คือประเทศที่นำเข้ามังคุดเป็นน้ำหนักกิโลกรัมเยอะสุดด้วย" จริงหรือไม่?
+                    <strong>คำถามท้าทาย (Paradox Analysis):</strong> "มีพนักงานฝึกหัดกล่าวว่า 'ประเทศที่นำเข้ามังคุดเป็นเปอร์เซ็นต์เยอะที่สุด คือประเทศที่นำเข้ามังคุดเป็นน้ำหนักกิโลกรัมเยอะที่สุดด้วย' ประโยคนี้เป็นจริงหรือไม่?"
                 </div>
                 <div class="scaffold-step" style="border-color: var(--neon-pink);">
                     <div style="background: #000; padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #333;">
+                        <div style="font-size: 0.8rem; color: var(--neon-pink); margin-bottom: 10px;">>> โปรดคำนวณความจริงก่อนตัดสินใจ:</div>
                         <div class="input-row"><span style="width: 150px; font-size: 0.9rem;">% มังคุดสูงสุดคือ:</span> <select id="boss-pct"><option value="">-- เลือก --</option><option value="vn">เวียดนาม (30%)</option><option value="hk">ฮ่องกง (25%)</option></select></div>
                         <div class="input-row"><span style="width: 150px; font-size: 0.9rem;">มังคุดจีน:</span> <input type="number" id="boss-c"> กก.</div>
                         <div class="input-row"><span style="width: 150px; font-size: 0.9rem;">มังคุดเวียดนาม:</span> <input type="number" id="boss-vn"> กก.</div>
                     </div>
-                    <select id="boss-ans" style="width: 100%; margin-bottom: 10px; padding: 8px;"><option value="">-- สรุปประโยค --</option><option value="true">เป็นความจริง</option><option value="false">ไม่เป็นความจริง</option></select>
-                    <button class="primary-btn" style="background: var(--neon-pink); color: #fff;" onclick="checkPhase4()">ทะลวงรหัสผ่าน!</button>
+                    <select id="boss-ans" style="width: 100%; margin-bottom: 10px; padding: 8px;"><option value="">-- สรุปประโยคนี้ --</option><option value="true">เป็นความจริง (ประเทศเดียวกัน)</option><option value="false">ไม่เป็นความจริง (คนละประเทศกัน)</option></select>
+                    <button class="primary-btn" style="background: var(--neon-pink); color: #fff;" onclick="checkPhase4()">ยืนยันข้อสรุป</button>
                 </div>
             </div>
 
             <div id="phase-5" class="phase-section">
                 <div class="story-box" style="border-color: #ff3366; background: rgba(255, 51, 102, 0.1);">
-                    <strong>⚠️ INTRUSION DETECTED:</strong> "แฮกเกอร์ซ่อนล็อกชั้นสุดท้ายไว้! เป็นข้อมูลตารางเสน่ห์ของ Beast (ดูฝั่งซ้าย) เราต้องเปลี่ยนคะแนนดิบเป็น 'ร้อยละ' เพื่อสร้างแผนภูมิแท่งส่วนประกอบร้อยละ (100% Stacked Bar)!"
+                    <strong>กรณีศึกษาพิเศษ:</strong> "เปลี่ยนบรรยากาศมาดูงานวิจัยสถิติความรัก (Beauty and the Beast) จงใช้ข้อมูลตารางคะแนนฝั่งซ้าย เพื่อเปลี่ยนคะแนนดิบเป็น 'ร้อยละ' สำหรับนำไปสร้างแผนภูมิแท่งส่วนประกอบร้อยละ (100% Stacked Bar)"
                 </div>
 
                 <div class="scaffold-step" style="border-color: #ff3366;">
-                    <div class="step-label" style="background: #ff3366; color: #fff;">MISSION 5: COMPONENT PERCENTAGE</div>
-                    <p style="font-size: 0.95rem;">จงคำนวณสัดส่วนร้อยละ (%) ของคะแนน "ความใจดี" (Inner) ในแต่ละช่วงเวลา (ทศนิยม 0 ตำแหน่ง)</p>
+                    <div class="step-label" style="background: #ff3366; color: #fff;">PHASE 5: COMPONENT PERCENTAGE</div>
+                    <p style="font-size: 0.95rem;">จงคำนวณสัดส่วนร้อยละ (%) ของคะแนน "ความใจดี" (Inner) ในแต่ละช่วงเวลา (ให้ตอบเป็นเลขจำนวนเต็ม)</p>
                     
                     <div style="background: #000; padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #333;">
                         <p style="font-size: 0.8rem; color: #888; margin-top: 0;">สูตร: (คะแนนความดี ÷ คะแนนรวม) × 100</p>
@@ -253,7 +275,7 @@
                     </div>
 
                     <div id="assist-5" class="ai-assist" style="display: none; border-left-color: #ff3366; color: #ff3366;">
-                        <strong>SIA Hint:</strong> ดูตารางฝั่งซ้าย! ฉากเต้นรำ ความดี = 80, คะแนนรวม = 100. คิดเป็นกี่ % ล่ะ?
+                        <strong>💡 HINT:</strong> ดูตารางฝั่งซ้าย! ตัวอย่างฉากเต้นรำ ความดี = 80, คะแนนรวม = 100. คิดเป็นกี่ % ล่ะ?
                     </div>
 
                     <button class="primary-btn" style="background: #ff3366;" onclick="checkPhase5()">คำนวณสัดส่วนข้อมูล</button>
@@ -262,11 +284,11 @@
 
             <div id="phase-6" class="phase-section">
                 <div class="story-box" style="border-color: #ff3366; background: rgba(255, 51, 102, 0.1);">
-                    <strong>SIA:</strong> "สร้างกราฟสำเร็จ! นี่คือแผนภูมิแท่งส่วนประกอบแบบร้อยละ (100% Stacked Bar) ของคะแนนดึงดูด จงอ่านกราฟนี้เพื่อสรุปผลลัพธ์!"
+                    <strong>สรุปผลข้อมูล:</strong> "จากแผนภูมิแท่งส่วนประกอบที่คุณเพิ่งคำนวณ จงอ่านกราฟจำลองนี้เพื่อสรุปผลลัพธ์ของงานวิจัย"
                 </div>
 
                 <div class="scaffold-step" style="border-color: #ff3366;">
-                    <div class="step-label" style="background: #ff3366; color: #fff;">FINAL DEDUCTION: GRAPH INTERPRETATION</div>
+                    <div class="step-label" style="background: #ff3366; color: #fff;">PHASE 6: GRAPH INTERPRETATION</div>
                     
                     <div class="fake-chart">
                         <div class="bar-col">
@@ -297,15 +319,23 @@
                         <option value="correct">สัดส่วนความสำคัญของความดีภายใน (สีแดง) มีอิทธิพลต่อคะแนนรวมเพิ่มขึ้นเรื่อยๆ จนเป็น 80%</option>
                     </select>
 
-                    <button class="primary-btn" style="background: #ff3366;" onclick="checkPhase6()">ปลดล็อกระบบทั้งหมด!</button>
+                    <button class="primary-btn" style="background: #ff3366;" onclick="checkPhase6()">ยืนยันผลการเรียนรู้</button>
                 </div>
             </div>
 
-            <div id="victory" class="phase-section" style="text-align: center; padding-top: 20px;">
-                <h1 style="color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); font-size: 2.5rem; margin-bottom: 10px;">SYSTEM RESTORED!</h1>
-                <p style="font-size: 1.2rem;">ยอดเยี่ยมมาก Agents! กู้คืนข้อมูลผลไม้ได้สำเร็จ และยังวิเคราะห์แผนภูมิแท่งส่วนประกอบของสมการความรักได้เป๊ะมาก!</p>
-                <div class="story-box" style="border-color: var(--neon-blue); background: rgba(0, 229, 255, 0.1); text-align: left; margin-top: 20px;">
-                    <strong>SIA (Mission Log):</strong> การเปรียบเทียบแค่ 'ร้อยละ' โดยไม่สนใจฐานจำนวนจริงเป็นเรื่องอันตราย (เหมือนเคสผลไม้) แต่การใช้แผนภูมิแท่งแบบร้อยละ (100% Stacked) ก็มีประโยชน์มากในการดู "สัดส่วนที่เปลี่ยนไป" ขององค์ประกอบภายใน (เหมือนเคสความรัก) นะ!
+            <div id="victory" class="phase-section" style="text-align: center; padding-top: 20px; height: 100%;">
+                <h1 style="color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); font-size: 2.5rem; margin-bottom: 20px;">LESSON COMPLETE!</h1>
+                
+                <img src="image1.png" class="img-display" style="max-width: 600px; margin: 0 auto 20px; display: block; border: 2px solid var(--neon-green);" alt="Conclusion Image" onerror="this.src='https://placehold.co/600x400/111/fff?text=ใส่ชื่อไฟล์รูป+image1.jpg'">
+                
+                <p style="font-size: 1.2rem; color: #fff; margin-bottom: 20px; line-height: 1.6;">
+                    จากแผนภาพจะเห็นว่า Beast ไม่จำเป็นต้องทำตัวเองให้ดูดีสำหรับ Bell ก็ยังได้<br>
+                    <span style="color: var(--neon-pink); font-weight: bold; font-size: 1.4rem;">แค่ต้อง bad ให้น้อยลงหน่อย เท่านั้นเอง</span><br>
+                    คนอย่าง bad จะได้ไม่ต้อง sad บ่อย 🥀
+                </p>
+
+                <div class="story-box" style="border-color: var(--neon-blue); background: rgba(0, 229, 255, 0.1); text-align: left; margin-top: 30px; display: inline-block; max-width: 800px;">
+                    <strong>บทสรุปการเรียนรู้:</strong> การเปรียบเทียบแค่ 'ร้อยละ' โดยไม่สนใจฐานจำนวนจริงเป็นเรื่องที่ต้องระวัง (เหมือนโจทย์บริษัทผลไม้) แต่การใช้แผนภูมิแท่งส่วนประกอบแบบร้อยละ (100% Stacked) ก็มีประโยชน์มากในการดู "สัดส่วนที่เปลี่ยนไป" ขององค์ประกอบภายใน
                 </div>
             </div>
 
@@ -347,7 +377,7 @@
                 let m = Math.floor(timeInSeconds / 60).toString().padStart(2, '0');
                 let s = (timeInSeconds % 60).toString().padStart(2, '0');
                 document.getElementById('countdown').innerText = `${m}:${s}`;
-                if (timeInSeconds <= 0) { clearInterval(timerInterval); document.getElementById('countdown').innerText = "00:00"; alert("MISSION FAILED!"); }
+                if (timeInSeconds <= 0) { clearInterval(timerInterval); document.getElementById('countdown').innerText = "00:00"; alert("หมดเวลาการทำแบบทดสอบ!"); }
             }, 1000);
         }
 
@@ -355,30 +385,38 @@
             if (document.getElementById('p1-c').value == 4500 && document.getElementById('p1-hk').value == 3000 && document.getElementById('p1-vn').value == 2500) {
                 document.getElementById('phase-1').classList.remove('active'); document.getElementById('phase-2').classList.add('active'); document.getElementById('img-bar').classList.remove('blurred');
                 if (window.updateServer) window.updateServer(teamId, 2);
-            } else { alert("ACCESS DENIED!"); }
+            } else {
+                failCount1++;
+                if(failCount1 >= 1) document.getElementById('assist-1').style.display = 'block';
+                alert("ข้อมูลไม่ถูกต้อง กรุณาตรวจสอบการคำนวณอีกครั้ง"); 
+            }
         }
         function checkPhase2() {
             if (document.getElementById('p2-q1').value == 900 && document.getElementById('p2-q2').value == 19400 && document.getElementById('p2-q3-choice').value === 'china' && document.getElementById('p2-q3-diff').value == 150) {
                 document.getElementById('phase-2').classList.remove('active'); document.getElementById('phase-3').classList.add('active'); document.getElementById('img-pie').style.opacity = '0.1';
                 if (window.updateServer) window.updateServer(teamId, 3);
-            } else { alert("DATA ERROR!"); }
+            } else {
+                failCount2++;
+                if(document.getElementById('p2-q1').value != 900) document.getElementById('assist-2-1').style.display = 'block';
+                if(document.getElementById('p2-q2').value != 19400 && failCount2 >= 1) document.getElementById('assist-2-2').style.display = 'block'; 
+                alert("มีจุดที่คำนวณผิดพลาด ระบบได้เปิดโหมดคำใบ้เพื่อช่วยคุณแล้ว"); 
+            }
         }
         function checkPhase3() {
             if (document.getElementById('p3-ans').value === 'no' && document.getElementById('p3-reason').value === 'A') {
                 document.getElementById('phase-3').classList.remove('active'); document.getElementById('phase-4').classList.add('active'); document.getElementById('img-pie').style.opacity = '1';
-                if (window.updateServer) window.updateServer(teamId, 4); // อัปเดตสถานะเพิ่มเติมให้ครบถ้วน
-            } else { alert("VIRUS DETECTED!"); }
+                if (window.updateServer) window.updateServer(teamId, 4); 
+            } else { alert("ตรรกะผิดพลาด! เปอร์เซ็นต์เยอะกว่าไม่ได้แปลว่าจำนวนจริงจะเยอะกว่าเสมอไป ถ้า 'ฐาน' ไม่เท่ากัน!"); }
         }
         function checkPhase4() {
             if (document.getElementById('boss-pct').value === 'vn' && document.getElementById('boss-c').value == 900 && document.getElementById('boss-vn').value == 750 && document.getElementById('boss-ans').value === 'false') {
                 document.getElementById('phase-4').classList.remove('active');
                 
-                // สลับแสดงตารางข้อมูล Beast
                 document.getElementById('fruit-data-container').style.display = 'none';
                 document.getElementById('love-data-container').style.display = 'block';
                 document.getElementById('phase-5').classList.add('active');
-                if (window.updateServer) window.updateServer(teamId, 5); // ส่งสถานะเข้าด่าน 5
-            } else { alert("HACKER LAUGHS: ลองเช็กตัวเลขให้ดีๆ!"); }
+                if (window.updateServer) window.updateServer(teamId, 5); 
+            } else { alert("ยังไม่ถูก! ลองเช็กตัวเลขให้ดีๆ จีนกินมังคุด 20% ของ 4,500 กก. ส่วนเวียดนามกิน 30% ของ 2,500 กก. นะ"); }
         }
 
         function checkPhase5() {
@@ -389,11 +427,11 @@
             if (q1 == 33 && q2 == 71 && q3 == 80) {
                 document.getElementById('phase-5').classList.remove('active');
                 document.getElementById('phase-6').classList.add('active');
-                if (window.updateServer) window.updateServer(teamId, 6); // ส่งสถานะเข้าด่าน 6
+                if (window.updateServer) window.updateServer(teamId, 6); 
             } else {
                 failCount5++;
                 if(failCount5 >= 1) document.getElementById('assist-5').style.display = 'block';
-                alert("HACKER MESSAGE: การคำนวณร้อยละผิดพลาด! ดูช่อง 'ความดี' หารด้วย 'รวม' แล้วคูณ 100 นะ");
+                alert("การคำนวณร้อยละยังไม่ถูกต้อง! ดูช่อง 'ความดี' หารด้วย 'รวม' แล้วคูณ 100");
             }
         }
 
@@ -402,11 +440,15 @@
 
             if (ans === 'correct') {
                 document.getElementById('phase-6').classList.remove('active');
+                
+                // ซ่อน Left Panel เพื่อขยายหน้าสรุปผลให้เต็มจอ
+                document.getElementById('left-panel').style.display = 'none';
                 document.getElementById('victory').classList.add('active');
+                
                 clearInterval(timerInterval);
-                if (window.updateServer) window.updateServer(teamId, 7); // ส่งสถานะจบเกม (Victory)
+                if (window.updateServer) window.updateServer(teamId, 7); 
             } else {
-                alert("HACKER MESSAGE: ตีความกราฟผิดแล้ว! ดูสีแดงสิ มันขยายใหญ่ขึ้นหรือเล็กลง?");
+                alert("ตีความกราฟผิดแล้ว! สังเกตพื้นที่สีแดงในกราฟให้ดีๆ ว่ามันขยายใหญ่ขึ้นหรือเล็กลง?");
             }
         }
     </script>
